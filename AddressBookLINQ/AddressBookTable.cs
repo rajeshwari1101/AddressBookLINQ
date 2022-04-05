@@ -63,8 +63,24 @@ namespace AddressBookLINQ
             InsertintoDataTable(contact);
 
         }
+
+        public void EditContact(string FirstName, string ColumnName)
+        {
+            AddContacts();
+            var recordData = (from table in table.AsEnumerable() where table.Field<string>("FirstName") == FirstName select table).FirstOrDefault();
+            if (recordData != null)
+            {
+                recordData[ColumnName] = "Sampada";
+                Display();
+            }
+            else
+            {
+                Console.WriteLine("No such record is available....");
+            }
+        }
         public void Display()
         {
+
             foreach (DataRow dtRows in table.Rows)
             {
                 Console.WriteLine("{0} \t {1} \t {2} \t {3} \t {4} \t {5} \t {6} \t {7}\n", dtRows["FirstName"], dtRows["LastName"], dtRows["Address"], dtRows["City"], dtRows["State"], dtRows["Zip"], dtRows["PhoneNumber"], dtRows["Email"]);
